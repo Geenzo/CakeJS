@@ -10,7 +10,12 @@ class CakeList extends Component {
 
   componentDidMount(){
     fetch(cakeURL)
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok){
+        throw Error(`Error retrieving cake list! --> Status Text:${response.statusText}`)
+      }
+      return response.json()
+    })
     .then(responseBody => {
 
       let tester = []
@@ -26,6 +31,9 @@ class CakeList extends Component {
       this.setState({
         cakes:result
       })
+    })
+    .catch(err => {
+      console.error(err.message)
     })
   }
 
