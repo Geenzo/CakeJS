@@ -16,3 +16,8 @@
 .App-intro {
   font-size: large;
 }
+
+button {
+  padding: 20px;
+  margin: 20px;
+}
