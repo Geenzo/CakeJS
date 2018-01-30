@@ -91,7 +91,7 @@ const Inputform = (props) => {
           </label>
           <br />
           <br />
-          <input type="button" value="Submit" onClick={props.captureFields}/>
+          <button type="button" value="Submit" onClick={props.captureFields}>Submit </button>
         </form>
       </div>
     );
