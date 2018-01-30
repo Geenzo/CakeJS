@@ -19,6 +19,8 @@ class EditCakes extends Component {
     let capturedtitle = document.getElementById('Cake_title').value
     let capturedDesc = document.getElementById('Cake_desc').value
     let capturedImage = document.getElementById('Cake_image').files[0]
+
+    if(capturedtitle && capturedDesc && capturedImage) {
     let reader = new FileReader();
 
     reader.readAsDataURL(capturedImage)
@@ -33,10 +35,15 @@ class EditCakes extends Component {
       this.props.cb(capturedFields, this.props.currentCake)
 
       this.setState({
-        showfields: false
+        showfields: false,
+        errorfield: false
       })
     }
-
+    } else {
+      this.setState({
+        errorfield: true
+      })
+    }
   }
 
   render() {
@@ -45,6 +52,7 @@ class EditCakes extends Component {
         <button type="button" onClick={this.onClick}>Edit Cake</button>
 
         {this.state.showfields ? <Inputform cb={this.props.cb} captureFields={this.captureFields}/> : null}
+        {this.state.errorfield ? <h3 className="ErrorField">Please fill in all fields to continue</h3> : null}
       </div>
     );
   }

@@ -4,7 +4,8 @@ class AddCakes extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showfields: false
+      showfields: false,
+      errorfield: false
     }
   }
 
@@ -19,6 +20,8 @@ class AddCakes extends Component {
     let capturedtitle = document.getElementById('Cake_title').value
     let capturedDesc = document.getElementById('Cake_desc').value
     let capturedImage = document.getElementById('Cake_image').files[0]
+
+    if(capturedtitle && capturedDesc && capturedImage) {
     let reader = new FileReader();
 
     reader.readAsDataURL(capturedImage)
@@ -33,11 +36,16 @@ class AddCakes extends Component {
       this.props.cb(capturedFields)
 
       this.setState({
-        showfields: false
+        showfields: false,
+        errorfield: false
       })
     }
-
+  } else {
+    this.setState({
+      errorfield: true
+    })
   }
+}
 
   render() {
     return (
@@ -48,6 +56,7 @@ class AddCakes extends Component {
           <button type="button" onClick={this.onClick}>Add Cake</button>
 
           {this.state.showfields ? <Inputform cb={this.props.cb} captureFields={this.captureFields}/> : null}
+          {this.state.errorfield ? <h3 className="ErrorField">Please fill in all fields to continue</h3> : null}
         </div>
       </div>
     );
