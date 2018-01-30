@@ -86,7 +86,7 @@ const Cakes = (props) => {
       <div className="Cake">
         <h4><u>{props.cake.title}</u></h4>
         <p>{props.cake.desc}</p>
-        <img src={props.cake.image} alt={props.cake.title} height="250vw"></img>
+        <img src={props.cake.image} alt={props.cake.title} height="250vw" width="250vw"></img>
       </div>
     );
 }
