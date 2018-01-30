@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddCakes from './addcakes';
+import EditCakes from './editcakes'
 
 const cakeURL = `https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json`
 
@@ -48,6 +49,13 @@ class CakeList extends Component {
     this.setState({cakes: arraycake})
   }
 
+  editCakeCallBack = (dataFromChild, currentCake) => {
+    let arraycake = this.state.cakes.slice()
+    let currentCakeIndex = arraycake.indexOf(currentCake);
+    arraycake[currentCakeIndex] = dataFromChild;
+    this.setState({cakes: arraycake})
+  }
+
   render() {
 
     if(!this.state.cakes) return <h2>Loading...</h2>
@@ -73,7 +81,7 @@ class CakeList extends Component {
           <input type="text"
           onChange={this.filter.bind(this)}/>
           {cakes.map(cake =>
-            <Cakes key={cake.title} cake={cake}/>
+            <Cakes key={cake.title} cake={cake} cb={this.editCakeCallBack}/>
           )}
         </div>
       </div>
@@ -87,6 +95,8 @@ const Cakes = (props) => {
         <h4><u>{props.cake.title}</u></h4>
         <p>{props.cake.desc}</p>
         <img src={props.cake.image} alt={props.cake.title} height="250vw" width="250vw"></img>
+
+        <EditCakes cb={props.cb} currentCake={props.cake}/>
       </div>
     );
 }
