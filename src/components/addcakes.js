@@ -18,19 +18,25 @@ class AddCakes extends Component {
 
     let capturedtitle = document.getElementById('Cake_title').value
     let capturedDesc = document.getElementById('Cake_desc').value
-    let capturedImage = document.getElementById('Cake_image').value
+    let capturedImage = document.getElementById('Cake_image').files[0]
+    let reader = new FileReader();
 
-    let capturedFields = {
-      title: capturedtitle,
-      desc: capturedDesc,
-      image: capturedImage
+    reader.readAsDataURL(capturedImage)
+
+    reader.onloadend = () => {
+      let capturedFields = {
+        title: capturedtitle,
+        desc: capturedDesc,
+        image: [reader.result]
+      }
+
+      this.props.cb(capturedFields)
+
+      this.setState({
+        showfields: false
+      })
     }
 
-    this.props.cb(capturedFields)
-
-    this.setState({
-      showfields: false
-    })
   }
 
   render() {
