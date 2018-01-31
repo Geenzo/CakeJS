@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InputForm from './inputform';
 
 class EditCakes extends Component {
   constructor(props) {
@@ -51,45 +52,11 @@ class EditCakes extends Component {
       <div>
         <button type="button" onClick={this.onClick}>Edit Cake</button>
 
-        {this.state.showfields ? <Inputform cb={this.props.cb} captureFields={this.captureFields}/> : null}
+        {this.state.showfields ? <InputForm cb={this.props.cb} captureFields={this.captureFields}/> : null}
         {this.state.errorfield ? <h3 className="ErrorField">Please fill in all fields to continue</h3> : null}
       </div>
     );
   }
-}
-
-const Inputform = (props) => {
-    return (
-      <div>
-        <form>
-          <label>
-            Name of cake:
-            <input id="Cake_title" type="text" />
-          </label>
-          <br />
-          <br />
-          <label>
-            Description of cake:
-             <input id="Cake_desc" type="text"/>
-          </label>
-          <br />
-          <br />
-          <label>
-            Image of Cake:
-            <input
-              type="file"
-              id="Cake_image"
-              ref={input => {
-                this.fileInput = input;
-              }}
-            />
-          </label>
-          <br />
-          <br />
-          <button type="button" value="Submit" className="EditButton" onClick={props.captureFields}>Submit</button>
-        </form>
-      </div>
-    );
 }
 
 export default EditCakes;
