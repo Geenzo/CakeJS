@@ -7,7 +7,9 @@ const cakeURL = `https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/
 class CakeList extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      cakes: null
+    }
   }
 
   componentDidMount(){
