@@ -52,3 +52,65 @@ test('Check that search successfully filters results', () => {
   component.find('input').simulate('change', {target: {value: 'Le'}})
   expect(component.find('.Cake').length).toBe(1)
 });
+
+test('Check that myCallbackForChild function works correctly', () => {
+  const component = mount(<CakeList />);
+  component.setState({
+    cakes:
+      [{
+        "desc": "A cheesecake made of lemon",
+        "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+        "title": "Lemon cheesecake"
+      },
+      {
+        "desc": "A cake made of sponge",
+        "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+        "title": "Sponge cake"
+      }]
+  });
+
+  let capturedFields = {
+    "desc": "This is a new cake",
+    "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+    "title": "New cake"
+  }
+
+  expect(component.state().cakes.length).toBe(2)
+  component.instance().myCallbackForChild(capturedFields)
+  expect(component.state().cakes.length).toBe(3)
+
+});
+
+test('Check that editCakeCallBack function works correctly', () => {
+  const component = mount(<CakeList />);
+  component.setState({
+    cakes:
+      [{
+        "desc": "A cheesecake made of lemon",
+        "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+        "title": "Lemon cheesecake"
+      },
+      {
+        "desc": "A cake made of sponge",
+        "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+        "title": "Sponge cake"
+      }]
+  });
+
+  let capturedFields = {
+    "desc": "This is a new cake",
+    "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+    "title": "New cake"
+  }
+
+  let currentCake = {
+    "desc": "A cheesecake made of lemon",
+    "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg",
+    "title": "Lemon cheesecake"
+  }
+
+  expect(component.state().cakes[0]).toMatchObject(currentCake)
+  component.instance().editCakeCallBack(capturedFields, currentCake)
+  expect(component.state().cakes[-1]).toMatchObject(capturedFields)
+
+});
