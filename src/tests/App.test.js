@@ -5,6 +5,7 @@ import CakeList from '../components/cakelist.js';
 import AddCakes from '../components/addcakes.js';
 import EditCakes from '../components/editcakes.js';
 import Header from '../components/header.js';
+import InputForm from '../components/inputform';
 import { shallow, mount, render } from "enzyme";
 
 
@@ -35,5 +36,11 @@ test('renders AddCakes component successfully', () => {
 test('renders EditCakes component successfully', () => {
   const div = document.createElement('div');
   ReactDOM.render( < EditCakes / > , div);
+  ReactDOM.unmountComponentAtNode(div);
+})
+
+test('renders InputForm component successfully', () => {
+  const div = document.createElement('div');
+  ReactDOM.render( < InputForm / > , div);
   ReactDOM.unmountComponentAtNode(div);
 })

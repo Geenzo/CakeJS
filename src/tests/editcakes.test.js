@@ -36,5 +36,5 @@ test('Check that clicking Edit Button renders input form', () => {
 
   wrapper.find("button").simulate("click");
 
-  expect(wrapper.find("Inputform").exists()).toBe(true);
+  expect(wrapper.find("InputForm").exists()).toBe(true);
 });
