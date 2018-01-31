@@ -24,7 +24,7 @@ test('Check that Error message had not been rendered', () => {
   const wrapper = shallow(
     <AddCakes />
   );
-  expect(wrapper.find("ErrorField").exists()).toBe(false);
+  expect(wrapper.find(".ErrorField").exists()).toBe(false);
 });
 
 
@@ -33,8 +33,14 @@ test('Check that clicking Add Button renders input form', () => {
     <AddCakes />
   );
   expect(wrapper.find("button").exists()).toBe(true);
-
   wrapper.find("button").simulate("click");
-
   expect(wrapper.find("InputForm").exists()).toBe(true);
+});
+
+test('Check that error field renders when state is changed', () => {
+  const wrapper = mount(
+    <AddCakes />
+  );
+  wrapper.setState({ errorfield: true });
+  expect(wrapper.find(".ErrorField").exists()).toBe(true);
 });
