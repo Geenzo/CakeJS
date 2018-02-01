@@ -44,3 +44,26 @@ test('Check that error field renders when state is changed', () => {
   wrapper.setState({ errorfield: true });
   expect(wrapper.find(".ErrorField").exists()).toBe(true);
 });
+
+test('Check that captureFields function successfully runs', () => {
+  const component = mount(<AddCakes />, { attachTo: document.body });
+  component.setState({
+    showfields: true,
+    errorfield: true
+  });
+
+  expect(component.state().showfields).toBe(true)
+  expect(component.state().errorfield).toBe(true)
+
+  component.find('#Cake_title').simulate('change', {target: {value: 'My new title'}});
+
+  expect(component.state().caketitle).toBe('My new title')
+
+  component.find('#Cake_desc').simulate('change', {target: {value: 'Lemon'}})
+
+  expect(component.state().cakedesc).toBe('Lemon')
+  component.find('#Cake_image').simulate('change', {target: {files: ['dummyValue.something']}})
+
+  component.find(".AddButton").simulate("click");
+
+});
