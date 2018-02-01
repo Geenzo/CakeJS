@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
 
 class InputForm extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  getfiles(props) {
+    let cakes = document.getElementById('Cake_image').files[0];
+    this.props.imgChange(cakes);
+  }
+
   render() {
     return (
       <div>
         <form>
           <label>
             Name of cake:
-            <input id="Cake_title" type="text" />
+            <input
+                id="Cake_title"
+                type="text"
+                onChange={this.props.titleChange}
+              />
           </label>
           <br />
           <br />
           <label>
             Description of cake:
-             <input id="Cake_desc" type="text"/>
+             <input
+               id="Cake_desc"
+               ref="newref"
+               type="text"
+               onChange={this.props.descChange}
+             />
           </label>
           <br />
           <br />
@@ -22,9 +40,7 @@ class InputForm extends Component {
             <input
               type="file"
               id="Cake_image"
-              ref={input => {
-                this.fileInput = input;
-              }}
+              onChange={this.getfiles.bind(this)}
             />
           </label>
           <br />

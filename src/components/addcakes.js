@@ -6,7 +6,10 @@ class AddCakes extends Component {
     super(props)
     this.state = {
       showfields: false,
-      errorfield: false
+      errorfield: false,
+      caketitle: '',
+      cakedesc: '',
+      cakeimage: ''
     }
   }
 
@@ -16,21 +19,33 @@ class AddCakes extends Component {
     })
   }
 
+  handleTitleFieldChange = (e) => {
+    this.setState({
+      caketitle: e.target.value
+    })
+  }
+
+  handleDescriptionFieldChange = (e) => {
+    this.setState({
+      cakedesc: e.target.value
+    })
+  }
+  handleImageFieldChange = (e) => {
+    this.setState({
+      cakeimage: e
+    })
+  }
+
   captureFields = (formFields) => {
 
-    let capturedtitle = document.getElementById('Cake_title').value
-    let capturedDesc = document.getElementById('Cake_desc').value
-    let capturedImage = document.getElementById('Cake_image').files[0]
-
-    if(capturedtitle && capturedDesc && capturedImage) {
+    if(this.state.caketitle && this.state.cakedesc && this.state.cakeimage) {
     let reader = new FileReader();
-
-    reader.readAsDataURL(capturedImage)
+    reader.readAsDataURL(this.state.cakeimage)
 
     reader.onloadend = () => {
       let capturedFields = {
-        title: capturedtitle,
-        desc: capturedDesc,
+        title: this.state.caketitle,
+        desc: this.state.cakedesc,
         image: [reader.result]
       }
 
@@ -56,7 +71,7 @@ class AddCakes extends Component {
         <div>
           <button type="button" onClick={this.onClick}>Add Cake</button>
 
-          {this.state.showfields ? <InputForm cb={this.props.cb} captureFields={this.captureFields}/> : null}
+          {this.state.showfields ? <InputForm cb={this.props.cb} captureFields={this.captureFields} titleChange={this.handleTitleFieldChange} descChange={this.handleDescriptionFieldChange} imgChange={this.handleImageFieldChange}/> : null}
           {this.state.errorfield ? <h3 className="ErrorField">Please fill in all fields to continue</h3> : null}
         </div>
       </div>
